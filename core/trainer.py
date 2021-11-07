@@ -153,6 +153,7 @@ def adversarial(
 
 def step(model, data, target, criterion, args):
     data, target = data.to(args.device), target.to(args.device)
+    print(data.shape)
     output = model(data)
     loss = criterion(output, target)
     return output, loss
