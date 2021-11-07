@@ -9,7 +9,7 @@ from torchvision import transforms
 from models.resnet50off import CNN
 from core.trainer import train_source_cnn
 from utils.utils import get_logger
-from utils.altutils import get_office
+from utils.altutils import get_office, get_ds
 
 
 def main(args):
@@ -20,8 +20,8 @@ def main(args):
 
     # data loaders
     dataset_root = os.environ["DATASETDIR"]
-    source_loader = get_office(dataset_root, args.batch_size, args.src_cat)
-    target_loader = get_office(dataset_root, args.batch_size, args.tgt_cat)
+    source_loader = get_ds(os.path.join(dataset_root, "train"), args.batch_size)
+    target_loader = get_ds(os.path.join(dataset_root, "test"), args.batch_size)
 
     # train source CNN
     source_cnn = CNN(in_channels=args.in_channels, srcTrain=True).to(args.device)
